@@ -30,7 +30,7 @@ export default {
       './images/dog9.jpg',
       './images/dog10.jpg',
     ],
-    dinosour: [
+    dinosaur: [
       './images/dino1.jpg',
       './images/dino2.jpg',
       './images/dino3.jpg',
