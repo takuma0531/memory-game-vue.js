@@ -1,10 +1,9 @@
 export default {
-  players: ['player1', 'player2', 'player3', 'player4'],
   cardsNum: {
     12: 12,
     16: 16,
     20: 20,
-  },
+  }, 
   cardChar: {
     cat: [
       './images/cat1.jpg',

@@ -10,7 +10,7 @@
       </select><br>
 
       <label for="card-type-select">Choose which picture do you prefer:</label>
-      <select name="card-type" id="card-type-select" v-model="cardType">
+      <select name="card-type" id="card-type-select" v-model="cardChar">
         <option value="cat">cat</option>
         <option value="dog">dog</option>
         <option value="dinosaur">dinosaur</option>
@@ -26,9 +26,9 @@
       <button v-on:click="startGame">Start</button>
     </div>
 
-    {{ this.$store.state.nPlayer }}
-    {{ this.$store.state.cardType }}
-    {{ this.$store.state.nCard }}
+    {{ this.$store.state.setGameInfo.nPlayer }}
+    {{ this.$store.state.setGameInfo.cardChar }}
+    {{ this.$store.state.setGameInfo.nCard }}
   </div>
 </template>
 
@@ -40,17 +40,14 @@ export default {
   data() {
     return {
       nPlayer: 1,
-      cardType: 'cat',
+      cardChar: 'cat',
       nCard: 12,
     };
   },
 
   methods: {
     startGame() {
-      // push setting data to state in the Store
-      this.$store.state.nPlayer = this.nPlayer;
-      this.$store.state.cardType = this.cardType;
-      this.$store.state.nCard = this.nCard;
+      this.$store.dispatch('setGameInfo', { nPlayer: this.nPlayer, cardChar: this.cardChar, nCard: this.nCard });
 
       $(document).ready(() => {
         $('.setting-option').hide();
