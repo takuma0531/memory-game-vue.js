@@ -6,6 +6,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    nPlayer: null,
+    cardType: null,
+    nCard: null,
   },
   getters: {
   },

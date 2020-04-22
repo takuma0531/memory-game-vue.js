@@ -25,6 +25,10 @@
 
       <button v-on:click="startGame">Start</button>
     </div>
+
+    {{ this.$store.state.nPlayer }}
+    {{ this.$store.state.cardType }}
+    {{ this.$store.state.nCard }}
   </div>
 </template>
 
@@ -43,6 +47,11 @@ export default {
 
   methods: {
     startGame() {
+      // push setting data to state in the Store
+      this.$store.state.nPlayer = this.nPlayer;
+      this.$store.state.cardType = this.cardType;
+      this.$store.state.nCard = this.nCard;
+
       $(document).ready(() => {
         $('.setting-option').hide();
       });
