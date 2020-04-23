@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
 import SettingField from '../views/SettingField.vue';
 import PlayField from '../views/PlayField.vue';
 
@@ -12,7 +13,7 @@ const routes = [
     component: SettingField,
   },
   {
-    path: '/',
+    path: '/play-field',
     name: 'PlayField',
     component: PlayField,
   },

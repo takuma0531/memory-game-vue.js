@@ -23,17 +23,14 @@
         <option value="20">20</option>
       </select><br>
 
-      <button v-on:click="startGame">Start</button>
+      <button v-on:click="startGame"><router-link to="/play-field">Start</router-link></button>
+      {{ this.$store.state.setGameInfo }}
     </div>
-
-    {{ this.$store.state.setGameInfo.nPlayer }}
-    {{ this.$store.state.setGameInfo.cardChar }}
-    {{ this.$store.state.setGameInfo.nCard }}
   </div>
 </template>
 
 <script>
-import $ from 'jquery';
+// import $ from 'jquery';
 
 export default {
   name: 'SettingField',
@@ -48,10 +45,9 @@ export default {
   methods: {
     startGame() {
       this.$store.dispatch('setGameInfo', { nPlayer: this.nPlayer, cardChar: this.cardChar, nCard: this.nCard });
-
-      $(document).ready(() => {
-        $('.setting-option').hide();
-      });
+      // $(document).ready(() => {
+      //   $('.setting-option').hide();
+      // });
     },
   },
 };
