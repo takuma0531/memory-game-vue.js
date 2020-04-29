@@ -10,6 +10,7 @@ export default new Vuex.Store({
       nPlayer: null,
       cardChar: null,
       nCard: null,
+      backImg: gameInfo.backImg,
     },
   },
   mutations: {
@@ -17,6 +18,11 @@ export default new Vuex.Store({
       state.setGameInfo.nPlayer = playerNum;
       state.setGameInfo.cardChar = cardSuit;
       state.setGameInfo.nCard = cardNum;
+    },
+    resetGameInfo(state) {
+      state.setGameInfo.nPlayer = null;
+      state.setGameInfo.cardChar = null;
+      state.setGameInfo.nCard = null;
     },
   },
   actions: {
