@@ -1,8 +1,8 @@
 export default {
-  cardsNum: {
-    12: 12,
-    16: 16,
-    20: 20,
+  pairCardsNum: {
+    12: 6,
+    16: 8,
+    20: 10,
   },
   cardChar: {
     cat: [

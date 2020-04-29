@@ -9,28 +9,28 @@ export default new Vuex.Store({
     setGameInfo: {
       nPlayer: null,
       cardChar: null,
-      nCard: null,
+      nPairCard: null,
       backImg: gameInfo.backImg,
     },
   },
   mutations: {
-    setGameInfo(state, { playerNum, cardSuit, cardNum }) {
+    setGameInfo(state, { playerNum, cardSuit, pairCardsNum }) {
       state.setGameInfo.nPlayer = playerNum;
       state.setGameInfo.cardChar = cardSuit;
-      state.setGameInfo.nCard = cardNum;
+      state.setGameInfo.nPairCard = pairCardsNum;
     },
     resetGameInfo(state) {
       state.setGameInfo.nPlayer = null;
       state.setGameInfo.cardChar = null;
-      state.setGameInfo.nCard = null;
+      state.setGameInfo.nPairCard = null;
     },
   },
   actions: {
     setGameInfo({ commit }, { nPlayer, cardChar, nCard }) {
       const playerNum = nPlayer;
       const cardSuit = gameInfo.cardChar[cardChar];
-      const cardNum = gameInfo.cardsNum[nCard];
-      commit('setGameInfo', { playerNum, cardSuit, cardNum });
+      const pairCardsNum = gameInfo.pairCardsNum[nCard];
+      commit('setGameInfo', { playerNum, cardSuit, pairCardsNum });
     },
   },
   modules: {

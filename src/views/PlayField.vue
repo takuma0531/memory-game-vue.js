@@ -1,12 +1,13 @@
 <template>
   <div class="play-field">
+    {{ setGameInfo }}
+    <button v-on:click="restart"><router-link to="/">Go back to Home</router-link></button>
+
     <div v-for="(card, index) in cards" v-bind:key="index">
       <Card>
-        <img :src="`${publicPath}images/${card}`" alt="frontimg">
+        <img :src="`${publicPath}images/${card}`" alt="frontimg" width="100px" height="100px">
       </Card>
     </div>
-
-    <button v-on:click="restart"><router-link to="/">Go back to Home</router-link></button>
   </div>
 </template>
 
@@ -37,7 +38,12 @@ export default {
   mounted() {
     // TODO: Find another better way.
     setTimeout(() => {
-      this.cards = this.setGameInfo.cardChar.concat(clonedeep(this.setGameInfo.cardChar));
+      const setCards = [];
+      for (let i = 0; i < this.setGameInfo.nPairCard; i += 1) {
+        setCards.push(this.setGameInfo.cardChar[i]);
+      }
+
+      this.cards = setCards.concat(clonedeep(setCards));
     }, 100);
   },
 };
