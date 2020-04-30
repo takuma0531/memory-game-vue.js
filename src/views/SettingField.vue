@@ -30,7 +30,6 @@
 </template>
 
 <script>
-// import $ from 'jquery';
 
 export default {
   name: 'SettingField',
@@ -45,9 +44,6 @@ export default {
   methods: {
     startGame() {
       this.$store.dispatch('setGameInfo', { nPlayer: this.nPlayer, cardChar: this.cardChar, nCard: this.nCard });
-      // $(document).ready(() => {
-      //   $('.setting-option').hide();
-      // });
     },
   },
 };

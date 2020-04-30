@@ -1,12 +1,29 @@
 <template>
-  <div class="card" :data-framework="`${card}`">
+  <div class="card" :data-framework="`${card}`" v-on:click="flipCard()">
     <slot></slot>
   </div>
 </template>
 
 <script>
+// import $ from 'jquery';
+
+// $(document).ready(() => {
+//   $('.setting-option').hide();
+// });
+
 export default {
   name: 'Card',
+  props: {
+    card: {
+      type: String,
+      required: true,
+    },
+  },
+  methods: {
+    flipCard() {
+      console.log('flipped');
+    },
+  },
 };
 </script>
 
