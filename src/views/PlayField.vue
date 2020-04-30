@@ -1,11 +1,12 @@
 <template>
   <div class="play-field">
     {{ setGameInfo }}
-    <button v-on:click="restart"><router-link to="/">Go back to Home</router-link></button>
+    <router-link v-on:click.native="restart" to="/">Go back to Home</router-link>
 
-    <div v-for="(card, index) in cards" v-bind:key="index">
-      <Card>
-        <img :src="`${publicPath}images/${card}`" alt="frontimg" width="100px" height="100px">
+    <div class="memory-game">
+      <Card v-for="(card, index) in cards" v-bind:key="index">
+        <img class="front-face" :src="`${publicPath}images/${card}.jpg`" alt="frontimg">
+        <img class="back-face" :src="`${setGameInfo.backImg}`" alt="backimg">
       </Card>
     </div>
   </div>
@@ -50,5 +51,16 @@ export default {
 </script>
 
 <style scoped>
+.play-field {
+  height: 100vh;
+}
 
+.memory-game {
+  /* background: #060AB2; */
+  display: flex;
+  flex-wrap: wrap;
+  width: 640px;
+  height: 640px;
+  margin: auto;
+}
 </style>

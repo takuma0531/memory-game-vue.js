@@ -23,7 +23,7 @@
         <option value="20">20</option>
       </select><br>
 
-      <button v-on:click="startGame"><router-link to="/play-field">Start</router-link></button>
+      <router-link v-on:click.native="startGame" to="/play-field">Start</router-link>
       {{ this.$store.state.setGameInfo }}
     </div>
   </div>
