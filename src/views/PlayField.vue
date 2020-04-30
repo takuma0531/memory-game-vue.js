@@ -62,5 +62,6 @@ export default {
   width: 640px;
   height: 640px;
   margin: auto;
+  perspective: 1000px;
 }
 </style>

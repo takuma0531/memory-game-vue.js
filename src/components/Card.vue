@@ -1,18 +1,18 @@
 <template>
-  <div class="card" :data-framework="`${card}`" v-on:click="flipCard()">
+  <div :class="`memory-card ${optional}`" v-on:click="flipCard" :data-framework="`${card}`">
     <slot></slot>
   </div>
 </template>
 
 <script>
-// import $ from 'jquery';
-
-// $(document).ready(() => {
-//   $('.setting-option').hide();
-// });
-
 export default {
   name: 'Card',
+  data() {
+    return {
+      isFlipped: false,
+      optional: null,
+    };
+  },
   props: {
     card: {
       type: String,
@@ -21,22 +21,32 @@ export default {
   },
   methods: {
     flipCard() {
-      console.log('flipped');
+      if (this.isFlipped) return;
+
+      this.optional = 'flip';
+
+      this.isFlipped = true;
     },
   },
 };
 </script>
 
 <style scoped>
-.card {
+.memory-card {
   margin: 10px;
   width: calc(25% - 20px);
   height: calc(25% - 20px);
   position: relative;
   transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform .5s;
 }
 
-.card:active {
+.memory-card.flip {
+  transform: rotateY(180deg);
+}
+
+.memory-card:active {
   transform: scale(0.97);
   transition: transform .2s;
 }
@@ -48,5 +58,10 @@ export default {
   position: absolute;
   border-radius: 10px;
   background: #1C7CCC;
+  backface-visibility: hidden;
+}
+
+.front-face {
+  transform: rotateY(180deg);
 }
 </style>
