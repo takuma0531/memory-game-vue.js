@@ -46,9 +46,8 @@ export default {
   transform: rotateY(180deg);
 }
 
-.memory-card:active {
-  transform: scale(0.97);
-  transition: transform .2s;
+.memory-card:hover {
+  cursor: pointer;
 }
 
 .front-face, .back-face {
