@@ -7,10 +7,10 @@
 <script>
 export default {
   name: 'Card',
+
   data() {
     return {
       isFlipped: false,
-      isMatched: false,
       optional: '',
     };
   },
@@ -24,28 +24,31 @@ export default {
       required: true,
     },
   },
+
+  computed: {
+    // TODO: unflip the first flipped card when there is no matching.
+  },
+
   methods: {
     flipCard() {
-      // disable mathced card
-      if (this.isMatched) return;
       // disable first flipped card
       if (this.isFlipped) return;
 
+      this.isFlipped = true;
       this.optional = 'flip';
+      console.log(this.$store.state.firstCard.card);
 
-      if (!this.$store.state.firstCard) {
+      if (!this.$store.state.firstCard.card) {
         // handle first flip
-        this.$store.commit('flipFirstCard', this.card);
+        console.log('flipped first card');
 
-        this.isFlipped = true;
+        this.$store.commit('flipFirstCard', this.card, this.isFlipped, this.optional);
       } else if (this.checkMatching(this.card)) {
+        // handle second flip
         console.log('matched');
 
-        this.isFlipped = true;
-        this.isMatched = true;
-
         // init first flipped card
-        this.$store.commit('flipFirstCard', null);
+        this.$store.commit('flipFirstCard', null, false, '');
 
         // how to disable matched first card? TODO:
       } else {
@@ -53,14 +56,14 @@ export default {
         console.log('unmatched');
 
         this.isFlipped = false;
-        this.$store.commit('flipFirstCard', null);
-        this.optional = '';
+        this.opt = '';
+        this.$store.commit('flipFirstCard', null, false, '');
         // How to unflip unmatched cards at the same time? TODO:
         // How to access another duplicated component? TODO:
       }
     },
     checkMatching(secondCard) {
-      if (this.$store.state.firstCard === secondCard) {
+      if (this.$store.state.firstCard.card === secondCard) {
         return true;
       }
       return false;

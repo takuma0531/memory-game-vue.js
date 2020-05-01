@@ -4,7 +4,7 @@
     <router-link v-on:click.native="restart" to="/">Go back to Home</router-link>
 
     <div class="memory-game">
-      <Card v-for="(card, index) in cards" v-bind:key="index" :card="card" :index="index">
+      <Card v-for="(card, index) in cards" :key="index" :card="card" :index="index">
         <img class="front-face" :src="`${publicPath}images/${card}.jpg`" alt="frontimg">
         <img class="back-face" :src="`${setGameInfo.backImg}`" alt="backimg">
       </Card>
@@ -27,6 +27,7 @@ export default {
       setGameInfo: this.$store.state.setGameInfo,
       cards: [],
       publicPath: process.env.BASE_URL,
+      optional: '',
     };
   },
 
