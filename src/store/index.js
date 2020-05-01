@@ -12,6 +12,9 @@ export default new Vuex.Store({
       nPairCard: null,
       backImg: gameInfo.backImg,
     },
+    firstCard: null,
+    secondCard: null,
+    matchedCards: [],
   },
   mutations: {
     setGameInfo(state, { playerNum, cardSuit, pairCardsNum }) {
@@ -23,6 +26,16 @@ export default new Vuex.Store({
       state.setGameInfo.nPlayer = null;
       state.setGameInfo.cardChar = null;
       state.setGameInfo.nPairCard = null;
+    },
+    flipFirstCard(state, firstCard) {
+      state.firstCard = firstCard;
+    },
+    flipSecondCard(state, secondCard) {
+      state.secondCard = secondCard;
+    },
+    storeMatchedCards(state, firstCard, secondCard) {
+      state.matchedCards.push(firstCard);
+      state.matchedCards.push(secondCard);
     },
   },
   actions: {

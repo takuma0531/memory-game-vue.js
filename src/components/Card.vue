@@ -1,5 +1,5 @@
 <template>
-  <div :class="`memory-card ${optional}`" v-on:click="flipCard" :data-framework="`${card}`">
+  <div :class="`memory-card ${optional}`" v-on:click="flipCard" :data-card="`${card}-${index}`">
     <slot></slot>
   </div>
 </template>
@@ -10,7 +10,8 @@ export default {
   data() {
     return {
       isFlipped: false,
-      optional: null,
+      isMatched: false,
+      optional: '',
     };
   },
   props: {
@@ -18,14 +19,51 @@ export default {
       type: String,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
     flipCard() {
+      // disable mathced card
+      if (this.isMatched) return;
+      // disable first flipped card
       if (this.isFlipped) return;
 
       this.optional = 'flip';
 
-      this.isFlipped = true;
+      if (!this.$store.state.firstCard) {
+        // handle first flip
+        this.$store.commit('flipFirstCard', this.card);
+
+        this.isFlipped = true;
+      } else if (this.checkMatching(this.card)) {
+        console.log('matched');
+
+        this.isFlipped = true;
+        this.isMatched = true;
+
+        // init first flipped card
+        this.$store.commit('flipFirstCard', null);
+
+        // how to disable matched first card? TODO:
+      } else {
+        // handling when unmatched
+        console.log('unmatched');
+
+        this.isFlipped = false;
+        this.$store.commit('flipFirstCard', null);
+        this.optional = '';
+        // How to unflip unmatched cards at the same time? TODO:
+        // How to access another duplicated component? TODO:
+      }
+    },
+    checkMatching(secondCard) {
+      if (this.$store.state.firstCard === secondCard) {
+        return true;
+      }
+      return false;
     },
   },
 };
@@ -37,7 +75,6 @@ export default {
   width: calc(25% - 20px);
   height: calc(25% - 20px);
   position: relative;
-  transform: scale(1);
   transform-style: preserve-3d;
   transition: transform .5s;
 }
