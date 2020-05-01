@@ -17,6 +17,9 @@ export default new Vuex.Store({
       isFlipped: false,
       optional: '',
     },
+    secondCard: {
+      isFlipped: false,
+    },
     matchedCards: [],
   },
   mutations: {
@@ -30,10 +33,13 @@ export default new Vuex.Store({
       state.setGameInfo.cardChar = null;
       state.setGameInfo.nPairCard = null;
     },
-    flipFirstCard(state, firstCard, isFlipped, optional) {
+    flipFirstCard(state, { firstCard, isFlipped, optional }) {
       state.firstCard.card = firstCard;
       state.firstCard.isFlipped = isFlipped;
       state.firstCard.optional = optional;
+    },
+    flipSecondCard(state, isFlipped) {
+      state.secondCard.isFlipped = isFlipped;
     },
     storeMatchedCards(state, index) {
       state.matchedCards.push(index);

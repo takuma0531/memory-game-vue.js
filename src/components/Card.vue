@@ -25,39 +25,45 @@ export default {
     },
   },
 
-  computed: {
+  watch: {
     // TODO: unflip the first flipped card when there is no matching.
+    opt() {
+      this.optional = this.$store.state.firstCard.optional;
+    },
   },
 
   methods: {
     flipCard() {
-      // disable first flipped card
+      // disable this component card
       if (this.isFlipped) return;
+      // disable the second card to stop flipping cards one after another
+      if (this.$store.state.secondCard.isFlipped) return;
 
       this.isFlipped = true;
       this.optional = 'flip';
-      console.log(this.$store.state.firstCard.card);
 
       if (!this.$store.state.firstCard.card) {
         // handle first flip
-        console.log('flipped first card');
-
-        this.$store.commit('flipFirstCard', this.card, this.isFlipped, this.optional);
+        this.$store.commit('flipFirstCard', { firstCard: this.card, isFlipped: this.isFlipped, optional: this.optional });
       } else if (this.checkMatching(this.card)) {
         // handle second flip
         console.log('matched');
 
         // init first flipped card
-        this.$store.commit('flipFirstCard', null, false, '');
+        this.$store.commit('flipFirstCard', { firstCard: null, isFlipped: false, optional: '' });
 
         // how to disable matched first card? TODO:
       } else {
         // handling when unmatched
         console.log('unmatched');
+        this.$store.commit('flipSecondCard', this.isFlipped);
 
-        this.isFlipped = false;
-        this.opt = '';
-        this.$store.commit('flipFirstCard', null, false, '');
+        setTimeout(() => {
+          this.isFlipped = false;
+          this.optional = '';
+          this.$store.commit('flipFirstCard', { firstCard: null, isFlipped: false, optional: '' });
+          this.$store.commit('flipSecondCard', this.isFlipped);
+        }, 900);
         // How to unflip unmatched cards at the same time? TODO:
         // How to access another duplicated component? TODO:
       }
