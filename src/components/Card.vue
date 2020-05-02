@@ -85,7 +85,6 @@ export default {
       this.$store.commit('flipFirstCard', {
         fCard: card, isFlipped, optional, index,
       });
-      console.log(this.$store.state.firstCard.index);
     },
     handleSecondCard(card, isFlipped, optional, index) {
       this.$store.commit('flipSecondCard', {

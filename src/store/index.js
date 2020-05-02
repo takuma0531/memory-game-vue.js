@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     setGameInfo: {
-      nPlayer: null,
+      playersStatus: [],
       cardChar: null,
       nPairCard: null,
       backImg: gameInfo.backImg,
@@ -25,15 +25,16 @@ export default new Vuex.Store({
       index: null,
     },
     matchedCards: [],
+    currentPlayer: 'player1',
   },
   mutations: {
-    setGameInfo(state, { playerNum, cardSuit, pairCardsNum }) {
-      state.setGameInfo.nPlayer = playerNum;
+    setGameInfo(state, { playersStatus, cardSuit, pairCardsNum }) {
+      state.setGameInfo.playersStatus = playersStatus;
       state.setGameInfo.cardChar = cardSuit;
       state.setGameInfo.nPairCard = pairCardsNum;
     },
     resetGameInfo(state) {
-      state.setGameInfo.nPlayer = null;
+      state.setGameInfo.playersStatus = null;
       state.setGameInfo.cardChar = null;
       state.setGameInfo.nPairCard = null;
     },
@@ -57,13 +58,19 @@ export default new Vuex.Store({
       state.matchedCards.push(state.firstCard.index);
       state.matchedCards.push(state.secondCard.index);
     },
+    addScore(state) {
+      state.setGameInfo.playersStatus[0].player1.score += 1;
+    },
   },
   actions: {
     setGameInfo({ commit }, { nPlayer, cardChar, nCard }) {
-      const playerNum = nPlayer;
+      const playersStatus = [];
+      for (let i = 0; i < nPlayer; i += 1) {
+        playersStatus.push(gameInfo.playersStatus[i]);
+      }
       const cardSuit = gameInfo.cardChar[cardChar];
       const pairCardsNum = gameInfo.pairCardsNum[nCard];
-      commit('setGameInfo', { playerNum, cardSuit, pairCardsNum });
+      commit('setGameInfo', { playersStatus, cardSuit, pairCardsNum });
     },
   },
   modules: {

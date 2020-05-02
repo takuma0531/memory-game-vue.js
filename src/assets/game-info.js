@@ -1,4 +1,30 @@
 export default {
+  playersStatus: [
+    {
+      player1: {
+        name: 'player1',
+        score: 0,
+      },
+    },
+    {
+      player2: {
+        name: 'player2',
+        score: 0,
+      },
+    },
+    {
+      player3: {
+        name: 'player3',
+        score: 0,
+      },
+    },
+    {
+      player4: {
+        name: 'player4',
+        score: 0,
+      },
+    },
+  ],
   pairCardsNum: {
     12: 6,
     16: 8,
