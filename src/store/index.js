@@ -46,7 +46,7 @@ export default new Vuex.Store({
     },
 
     resetGameInfo(state) {
-      state.setGameInfo.playersStatus = null;
+      state.setGameInfo.playersStatus = [];
       state.setGameInfo.cardChar = null;
       state.setGameInfo.nPairCard = null;
       state.setGameInfo.nCard = null;

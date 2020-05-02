@@ -1,7 +1,6 @@
 <template>
   <div class="player-status">
-    <p :class="`${highlight}`">{{ player }}</p>
-    <p>{{ score }}</p>
+    <p :class="`player ${highlight}`">{{ player }} : <span>{{ score }}</span></p>
   </div>
 </template>
 
@@ -44,7 +43,27 @@ export default {
 </script>
 
 <style scoped>
-.current {
-  color: red;
+.player-status {
+  margin: 30px;
+}
+
+.player {
+  font-size: 1.5vw;
+  color: #f5f9f5c7;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #29842ca3;
+  border: 1px solid #29842ca3;
+}
+
+.player.current {
+  color: #f0f328fa;
+}
+
+@media screen and (max-width: 1024px) {
+  .player {
+    font-size: 2.3vw;
+  }
 }
 </style>

@@ -144,10 +144,10 @@ export default {
 .front-face, .back-face {
   width: 80%;
   height: 80%;
-  padding: 15px;
+  padding: 5px;
   position: absolute;
   border-radius: 10px;
-  background: #1C7CCC;
+  background: #7dcc8780;
   backface-visibility: hidden;
 }
 

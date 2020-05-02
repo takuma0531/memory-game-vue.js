@@ -1,10 +1,15 @@
 <template>
   <div class="play-field">
-    <router-link v-on:click.native="restart" to="/">Go back to Home</router-link>
 
-    <div>{{ renderingWinners }}</div>
+    <div class="restart-field">
+      <router-link class="restart" v-on:click.native="restart" to="/">Restart Game</router-link>
+    </div>
 
-    <PlayerStatus v-for="(pstatus, id) in playersStatus" :key="id" :pstatus="pstatus" :id="id"/>
+    <div class="player-status">
+      <PlayerStatus v-for="(pstatus, id) in playersStatus" :key="id" :pstatus="pstatus" :id="id"/>
+    </div>
+
+    <div class="winners">{{ renderingWinners }}</div>
 
     <div class="memory-game">
       <Card v-for="(card, index) in cards" :key="index" :card="card" :index="index">
@@ -12,6 +17,7 @@
         <img class="back-face" :src="`${setGameInfo.backImg}`" alt="backimg">
       </Card>
     </div>
+
   </div>
 </template>
 
@@ -78,17 +84,44 @@ export default {
 </script>
 
 <style scoped>
-.play-field {
-  height: 100vh;
+.restart-field {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.restart {
+  color: #ef1515d1;
+  font-size: 1.7vw;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 4px;
+  border: #19ca1799 solid 3px;
+  border-radius: 20px;
+  background: #19ca1799;
+}
+
+.restart:hover {
+  background: green;
+}
+
+.player-status {
+  display: flex;
+  flex-direction: row;
+  margin: 10px auto;
 }
 
 .memory-game {
-  /* background: #060AB2; */
   display: flex;
   flex-wrap: wrap;
   width: 640px;
   height: 640px;
   margin: auto;
   perspective: 1000px;
+}
+
+@media screen and (max-width: 1024px) {
+  .restart {
+    font-size: 2.5vw;
+  }
 }
 </style>
