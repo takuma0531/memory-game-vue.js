@@ -25,7 +25,10 @@ export default new Vuex.Store({
       index: null,
     },
     matchedCards: [],
-    currentPlayer: 'player1',
+    currentPlayer: {
+      id: 0,
+      name: 'player1',
+    },
   },
   mutations: {
     setGameInfo(state, { playersStatus, cardSuit, pairCardsNum }) {
@@ -58,8 +61,8 @@ export default new Vuex.Store({
       state.matchedCards.push(state.firstCard.index);
       state.matchedCards.push(state.secondCard.index);
     },
-    addScore(state, { index, player }) {
-      state.setGameInfo.playersStatus[index][player].score += 1;
+    addScore(state) {
+      state.setGameInfo.playersStatus[state.currentPlayer.id][state.currentPlayer.name].score += 1;
     },
   },
   actions: {

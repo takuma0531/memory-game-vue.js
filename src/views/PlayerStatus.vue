@@ -3,8 +3,6 @@
     <p>{{ pstatus }}</p>
     <p>{{ player }}</p>
     <p>{{ score }}</p>
-
-    <button v-on:click="addSampleScore">push!</button>
   </div>
 </template>
 
@@ -32,9 +30,6 @@ export default {
   },
 
   methods: {
-    addSampleScore() {
-      this.$store.commit('addScore', { index: this.id, player: this.player });
-    },
   },
 
   mounted() {
