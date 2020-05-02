@@ -53,8 +53,9 @@ export default new Vuex.Store({
       state.secondCard.optional = optional;
       state.secondCard.index = index;
     },
-    storeMatchedCards(state, index) {
-      state.matchedCards.push(index);
+    storeMatchedCards(state) {
+      state.matchedCards.push(state.firstCard.index);
+      state.matchedCards.push(state.secondCard.index);
     },
   },
   actions: {

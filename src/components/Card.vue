@@ -5,8 +5,6 @@
 </template>
 
 <script>
-// if matched, pairs are removed from the table TODO:
-
 export default {
   name: 'Card',
 
@@ -26,7 +24,7 @@ export default {
       required: true,
     },
   },
-
+  // computed applies to all the components
   computed: {
     opt() {
       if (this.index === this.$store.state.firstCard.index) {
@@ -34,6 +32,9 @@ export default {
       }
       if (this.index === this.$store.state.secondCard.index) {
         return this.optional;
+      }
+      if (this.removeMatchedCards()) {
+        return 'remove';
       }
       return '';
     },
@@ -57,7 +58,10 @@ export default {
         console.log('matched');
         this.handleSecondCard(this.card, this.isFlipped, this.optional, this.index);
 
-        // init first flipped card
+        // store paired cards
+        this.$store.commit('storeMatchedCards');
+
+        // init flipped card
         setTimeout(() => {
           this.handleFirstCard(null, false, '', null);
           this.handleSecondCard(null, false, '', null);
@@ -93,6 +97,9 @@ export default {
       }
       return false;
     },
+    removeMatchedCards() {
+      return this.$store.state.matchedCards.some((mc) => mc === this.index);
+    },
   },
 };
 </script>
@@ -109,6 +116,10 @@ export default {
 
 .memory-card.flip {
   transform: rotateY(180deg);
+}
+
+.memory-card.remove {
+  display: none;
 }
 
 .memory-card:hover {
