@@ -1,5 +1,5 @@
 <template>
-  <div :class="`memory-card ${opt}`" v-on:click="flipCard" :data-card="`${card}-${index}`">
+  <div :class="`memory-card ${opt}`" v-on:click="flipCard">
     <slot></slot>
   </div>
 </template>
