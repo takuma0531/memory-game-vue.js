@@ -1,6 +1,5 @@
 <template>
   <div class="player-status">
-    <p>{{ pstatus }}</p>
     <p :class="`${highlight}`">{{ player }}</p>
     <p>{{ score }}</p>
   </div>
@@ -40,8 +39,6 @@ export default {
 
   mounted() {
     this.player = this.pstatus[`player${this.id + 1}`].name;
-    console.log(this.player);
-    console.log(this.$store.state.currentPlayer.name);
   },
 };
 </script>

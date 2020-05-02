@@ -50,8 +50,10 @@ export default new Vuex.Store({
       state.setGameInfo.cardChar = null;
       state.setGameInfo.nPairCard = null;
       state.setGameInfo.nCard = null;
+      state.matchedCards = [];
       state.currentPlayer.id = 0;
       state.currentPlayer.name = 'player1';
+      state.winners = [];
 
       for (let i = 0; i < 4; i += 1) {
         gameInfo.playersStatus[i][`player${i + 1}`].score = 0;
@@ -86,8 +88,6 @@ export default new Vuex.Store({
     },
 
     changeTurn(state) {
-      console.log(state.currentPlayer.id);
-      console.log(state.setGameInfo.playersStatus.length);
       if (state.currentPlayer.id === state.setGameInfo.playersStatus.length - 1) {
         state.currentPlayer.id = 0;
         state.currentPlayer.name = 'player1';
@@ -100,14 +100,16 @@ export default new Vuex.Store({
     setWinners(state) {
       let max = 0;
       for (let i = 0; i < state.setGameInfo.nPlayer; i += 1) {
-        const { score } = state.setGameInfo.playersStatus[i][`player${i + 1}`].score;
-        if (max > score) {
-          max = score;
+        if (max < state.setGameInfo.playersStatus[i][`player${i + 1}`].score) {
+          max = state.setGameInfo.playersStatus[i][`player${i + 1}`].score;
         }
       }
+      console.log(max);
 
       for (let i = 0; i < state.setGameInfo.nPlayer; i += 1) {
-        state.winners.push(state.setGameInfo.playersStatus[i][`player${i + 1}`].name);
+        if (state.setGameInfo.playersStatus[i][`player${i + 1}`].score === max) {
+          state.winners.push(state.setGameInfo.playersStatus[i][`player${i + 1}`].name);
+        }
       }
     },
   },

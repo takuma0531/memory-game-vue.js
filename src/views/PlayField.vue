@@ -1,6 +1,5 @@
 <template>
   <div class="play-field">
-    <p>{{ setGameInfo }}</p>
     <router-link v-on:click.native="restart" to="/">Go back to Home</router-link>
 
     <div>{{ renderingWinners }}</div>

@@ -56,7 +56,6 @@ export default {
         this.handleFirstCard(this.card, this.isFlipped, this.optional, this.index);
       } else if (this.checkMatching(this.card)) {
         // handle second flip
-        console.log('matched');
         this.handleSecondCard(this.card, this.isFlipped, this.optional, this.index);
 
         // store paired cards
@@ -72,7 +71,6 @@ export default {
           // end game
           if (this.allCardsNum === this.$store.state.matchedCards.length) {
             this.$store.commit('setWinners');
-            // restart button TODO:
           }
         }, 900);
 
@@ -80,7 +78,6 @@ export default {
         this.$store.commit('addScore');
       } else {
         // handling when unmatched
-        console.log('unmatched');
         this.$store.commit('flipSecondCard', {
           sCard: this.card, isFlipped: this.isFlipped, optional: this.optional, index: this.index,
         });
@@ -137,7 +134,7 @@ export default {
 }
 
 .memory-card.remove {
-  display: none;
+  visibility: hidden;
 }
 
 .memory-card:hover {
