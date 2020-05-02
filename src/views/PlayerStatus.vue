@@ -1,7 +1,7 @@
 <template>
   <div class="player-status">
     <p>{{ pstatus }}</p>
-    <p>{{ player }}</p>
+    <p :class="`${highlight}`">{{ player }}</p>
     <p>{{ score }}</p>
   </div>
 </template>
@@ -27,6 +27,12 @@ export default {
     score() {
       return this.pstatus[`player${this.id + 1}`].score;
     },
+    highlight() {
+      if (this.player === this.$store.state.currentPlayer.name) {
+        return 'current';
+      }
+      return '';
+    },
   },
 
   methods: {
@@ -34,12 +40,14 @@ export default {
 
   mounted() {
     this.player = this.pstatus[`player${this.id + 1}`].name;
+    console.log(this.player);
+    console.log(this.$store.state.currentPlayer.name);
   },
 };
 </script>
 
 <style scoped>
-.players {
-  list-style-type: none;
+.current {
+  color: red;
 }
 </style>
