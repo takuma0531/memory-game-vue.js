@@ -1,10 +1,12 @@
 <template>
-  <div :class="`memory-card ${optional}`" v-on:click="flipCard" :data-card="`${card}-${index}`">
+  <div :class="`memory-card ${opt}`" v-on:click="flipCard" :data-card="`${card}-${index}`">
     <slot></slot>
   </div>
 </template>
 
 <script>
+// if matched, pairs are removed from the table TODO:
+
 export default {
   name: 'Card',
 
@@ -25,10 +27,15 @@ export default {
     },
   },
 
-  watch: {
-    // TODO: unflip the first flipped card when there is no matching.
+  computed: {
     opt() {
-      this.optional = this.$store.state.firstCard.optional;
+      if (this.index === this.$store.state.firstCard.index) {
+        return this.optional;
+      }
+      if (this.index === this.$store.state.secondCard.index) {
+        return this.optional;
+      }
+      return '';
     },
   },
 
@@ -44,29 +51,41 @@ export default {
 
       if (!this.$store.state.firstCard.card) {
         // handle first flip
-        this.$store.commit('flipFirstCard', { firstCard: this.card, isFlipped: this.isFlipped, optional: this.optional });
+        this.handleFirstCard(this.card, this.isFlipped, this.optional, this.index);
       } else if (this.checkMatching(this.card)) {
         // handle second flip
         console.log('matched');
+        this.handleSecondCard(this.card, this.isFlipped, this.optional, this.index);
 
         // init first flipped card
-        this.$store.commit('flipFirstCard', { firstCard: null, isFlipped: false, optional: '' });
-
-        // how to disable matched first card? TODO:
+        setTimeout(() => {
+          this.handleFirstCard(null, false, '', null);
+          this.handleSecondCard(null, false, '', null);
+        }, 900);
       } else {
         // handling when unmatched
         console.log('unmatched');
-        this.$store.commit('flipSecondCard', this.isFlipped);
+        this.$store.commit('flipSecondCard', {
+          sCard: this.card, isFlipped: this.isFlipped, optional: this.optional, index: this.index,
+        });
 
         setTimeout(() => {
           this.isFlipped = false;
           this.optional = '';
-          this.$store.commit('flipFirstCard', { firstCard: null, isFlipped: false, optional: '' });
-          this.$store.commit('flipSecondCard', this.isFlipped);
+          this.handleFirstCard(null, false, '', null);
+          this.handleSecondCard(null, false, '', null);
         }, 900);
-        // How to unflip unmatched cards at the same time? TODO:
-        // How to access another duplicated component? TODO:
       }
+    },
+    handleFirstCard(card, isFlipped, optional, index) {
+      this.$store.commit('flipFirstCard', {
+        fCard: card, isFlipped, optional, index,
+      });
+    },
+    handleSecondCard(card, isFlipped, optional, index) {
+      this.$store.commit('flipSecondCard', {
+        sCard: card, isFlipped, optional, index,
+      });
     },
     checkMatching(secondCard) {
       if (this.$store.state.firstCard.card === secondCard) {

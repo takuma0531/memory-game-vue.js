@@ -16,9 +16,13 @@ export default new Vuex.Store({
       card: null,
       isFlipped: false,
       optional: '',
+      index: null,
     },
     secondCard: {
+      card: null,
       isFlipped: false,
+      optional: '',
+      index: null,
     },
     matchedCards: [],
   },
@@ -33,13 +37,21 @@ export default new Vuex.Store({
       state.setGameInfo.cardChar = null;
       state.setGameInfo.nPairCard = null;
     },
-    flipFirstCard(state, { firstCard, isFlipped, optional }) {
-      state.firstCard.card = firstCard;
+    flipFirstCard(state, {
+      fCard, isFlipped, optional, index,
+    }) {
+      state.firstCard.card = fCard;
       state.firstCard.isFlipped = isFlipped;
       state.firstCard.optional = optional;
+      state.firstCard.index = index;
     },
-    flipSecondCard(state, isFlipped) {
+    flipSecondCard(state, {
+      sCard, isFlipped, optional, index,
+    }) {
+      state.secondCard.card = sCard;
       state.secondCard.isFlipped = isFlipped;
+      state.secondCard.optional = optional;
+      state.secondCard.index = index;
     },
     storeMatchedCards(state, index) {
       state.matchedCards.push(index);
