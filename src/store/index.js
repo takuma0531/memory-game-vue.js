@@ -58,8 +58,8 @@ export default new Vuex.Store({
       state.matchedCards.push(state.firstCard.index);
       state.matchedCards.push(state.secondCard.index);
     },
-    addScore(state) {
-      state.setGameInfo.playersStatus[0].player1.score += 1;
+    addScore(state, { index, player }) {
+      state.setGameInfo.playersStatus[index][player].score += 1;
     },
   },
   actions: {

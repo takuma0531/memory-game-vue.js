@@ -33,7 +33,7 @@ export default {
 
   methods: {
     addSampleScore() {
-      this.$store.commit('addScore');
+      this.$store.commit('addScore', { index: this.id, player: this.player });
     },
   },
 
