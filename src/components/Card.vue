@@ -10,6 +10,7 @@ export default {
 
   data() {
     return {
+      allCardsNum: this.$store.state.setGameInfo.nCard,
       isFlipped: false,
       optional: '',
     };
@@ -63,12 +64,19 @@ export default {
 
         // init flipped card
         setTimeout(() => {
-          this.handleFirstCard(null, false, '', null);
-          this.handleSecondCard(null, false, '', null);
+          this.isFlipped = false;
+          this.optional = '';
+          this.handleFirstCard(null, this.isFlipped, this.optional, null);
+          this.handleSecondCard(null, this.isFlipped, this.optional, null);
         }, 900);
 
         // add score
         this.$store.commit('addScore');
+
+        // end game TODO:
+        if (this.allCardsNum === this.$store.state.matchedCards.length) {
+          alert('game ends!');
+        }
       } else {
         // handling when unmatched
         console.log('unmatched');
@@ -79,29 +87,33 @@ export default {
         setTimeout(() => {
           this.isFlipped = false;
           this.optional = '';
-          this.handleFirstCard(null, false, '', null);
-          this.handleSecondCard(null, false, '', null);
+          this.handleFirstCard(null, this.isFlipped, this.optional, null);
+          this.handleSecondCard(null, this.isFlipped, this.optional, null);
         }, 900);
 
         this.$store.commit('changeTurn');
       }
     },
+
     handleFirstCard(card, isFlipped, optional, index) {
       this.$store.commit('flipFirstCard', {
         fCard: card, isFlipped, optional, index,
       });
     },
+
     handleSecondCard(card, isFlipped, optional, index) {
       this.$store.commit('flipSecondCard', {
         sCard: card, isFlipped, optional, index,
       });
     },
+
     checkMatching(secondCard) {
       if (this.$store.state.firstCard.card === secondCard) {
         return true;
       }
       return false;
     },
+
     removeMatchedCards() {
       return this.$store.state.matchedCards.some((mc) => mc === this.index);
     },

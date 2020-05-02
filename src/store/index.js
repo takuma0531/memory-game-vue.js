@@ -10,6 +10,7 @@ export default new Vuex.Store({
       playersStatus: [],
       cardChar: null,
       nPairCard: null,
+      nCard: null,
       backImg: gameInfo.backImg,
     },
     firstCard: {
@@ -30,17 +31,28 @@ export default new Vuex.Store({
       name: 'player1',
     },
   },
+
   mutations: {
-    setGameInfo(state, { playersStatus, cardSuit, pairCardsNum }) {
+    setGameInfo(state, {
+      playersStatus, cardSuit, pairCardsNum, nCard,
+    }) {
       state.setGameInfo.playersStatus = playersStatus;
       state.setGameInfo.cardChar = cardSuit;
       state.setGameInfo.nPairCard = pairCardsNum;
+      state.setGameInfo.nCard = nCard;
     },
+
     resetGameInfo(state) {
       state.setGameInfo.playersStatus = null;
       state.setGameInfo.cardChar = null;
       state.setGameInfo.nPairCard = null;
+      state.setGameInfo.nCard = null;
+
+      for (let i = 0; i < 4; i += 1) {
+        gameInfo.playersStatus[i][`player${i + 1}`].score = 0;
+      }
     },
+
     flipFirstCard(state, {
       fCard, isFlipped, optional, index,
     }) {
@@ -49,6 +61,7 @@ export default new Vuex.Store({
       state.firstCard.optional = optional;
       state.firstCard.index = index;
     },
+
     flipSecondCard(state, {
       sCard, isFlipped, optional, index,
     }) {
@@ -57,13 +70,16 @@ export default new Vuex.Store({
       state.secondCard.optional = optional;
       state.secondCard.index = index;
     },
+
     storeMatchedCards(state) {
       state.matchedCards.push(state.firstCard.index);
       state.matchedCards.push(state.secondCard.index);
     },
+
     addScore(state) {
       state.setGameInfo.playersStatus[state.currentPlayer.id][state.currentPlayer.name].score += 1;
     },
+
     changeTurn(state) {
       console.log(state.currentPlayer.id);
       console.log(state.setGameInfo.playersStatus.length);
@@ -76,6 +92,7 @@ export default new Vuex.Store({
       }
     },
   },
+
   actions: {
     setGameInfo({ commit }, { nPlayer, cardChar, nCard }) {
       const playersStatus = [];
@@ -84,9 +101,9 @@ export default new Vuex.Store({
       }
       const cardSuit = gameInfo.cardChar[cardChar];
       const pairCardsNum = gameInfo.pairCardsNum[nCard];
-      commit('setGameInfo', { playersStatus, cardSuit, pairCardsNum });
+      commit('setGameInfo', {
+        playersStatus, cardSuit, pairCardsNum, nCard,
+      });
     },
-  },
-  modules: {
   },
 });
