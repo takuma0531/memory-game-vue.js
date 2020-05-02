@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     setGameInfo: {
       playersStatus: [],
+      nPlayer: null,
       cardChar: null,
       nPairCard: null,
       nCard: null,
@@ -30,13 +31,15 @@ export default new Vuex.Store({
       id: 0,
       name: 'player1',
     },
+    winners: [],
   },
 
   mutations: {
     setGameInfo(state, {
-      playersStatus, cardSuit, pairCardsNum, nCard,
+      playersStatus, nPlayer, cardSuit, pairCardsNum, nCard,
     }) {
       state.setGameInfo.playersStatus = playersStatus;
+      state.setGameInfo.nPlayer = nPlayer;
       state.setGameInfo.cardChar = cardSuit;
       state.setGameInfo.nPairCard = pairCardsNum;
       state.setGameInfo.nCard = nCard;
@@ -47,6 +50,8 @@ export default new Vuex.Store({
       state.setGameInfo.cardChar = null;
       state.setGameInfo.nPairCard = null;
       state.setGameInfo.nCard = null;
+      state.currentPlayer.id = 0;
+      state.currentPlayer.name = 'player1';
 
       for (let i = 0; i < 4; i += 1) {
         gameInfo.playersStatus[i][`player${i + 1}`].score = 0;
@@ -91,6 +96,20 @@ export default new Vuex.Store({
         state.currentPlayer.name = `player${state.currentPlayer.id + 1}`;
       }
     },
+
+    setWinners(state) {
+      let max = 0;
+      for (let i = 0; i < state.setGameInfo.nPlayer; i += 1) {
+        const { score } = state.setGameInfo.playersStatus[i][`player${i + 1}`].score;
+        if (max > score) {
+          max = score;
+        }
+      }
+
+      for (let i = 0; i < state.setGameInfo.nPlayer; i += 1) {
+        state.winners.push(state.setGameInfo.playersStatus[i][`player${i + 1}`].name);
+      }
+    },
   },
 
   actions: {
@@ -102,7 +121,7 @@ export default new Vuex.Store({
       const cardSuit = gameInfo.cardChar[cardChar];
       const pairCardsNum = gameInfo.pairCardsNum[nCard];
       commit('setGameInfo', {
-        playersStatus, cardSuit, pairCardsNum, nCard,
+        playersStatus, nPlayer, cardSuit, pairCardsNum, nCard,
       });
     },
   },

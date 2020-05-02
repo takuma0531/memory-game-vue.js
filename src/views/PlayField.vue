@@ -1,7 +1,9 @@
 <template>
   <div class="play-field">
-    {{ setGameInfo }}
+    <p>{{ setGameInfo }}</p>
     <router-link v-on:click.native="restart" to="/">Go back to Home</router-link>
+
+    <div>{{ renderingWinners }}</div>
 
     <PlayerStatus v-for="(pstatus, id) in playersStatus" :key="id" :pstatus="pstatus" :id="id"/>
 
@@ -34,6 +36,15 @@ export default {
       publicPath: process.env.BASE_URL,
       optional: '',
     };
+  },
+
+  computed: {
+    renderingWinners() {
+      if (this.$store.state.winners.length !== 0) {
+        return `${this.$store.state.winners.toString()} win!`;
+      }
+      return '';
+    },
   },
 
   methods: {

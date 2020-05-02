@@ -68,15 +68,16 @@ export default {
           this.optional = '';
           this.handleFirstCard(null, this.isFlipped, this.optional, null);
           this.handleSecondCard(null, this.isFlipped, this.optional, null);
+
+          // end game
+          if (this.allCardsNum === this.$store.state.matchedCards.length) {
+            this.$store.commit('setWinners');
+            // restart button TODO:
+          }
         }, 900);
 
         // add score
         this.$store.commit('addScore');
-
-        // end game TODO:
-        if (this.allCardsNum === this.$store.state.matchedCards.length) {
-          alert('game ends!');
-        }
       } else {
         // handling when unmatched
         console.log('unmatched');
