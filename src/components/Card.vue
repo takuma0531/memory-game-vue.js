@@ -42,8 +42,8 @@ export default {
 
   methods: {
     flipCard() {
-      // disable this component card
-      if (this.isFlipped) return;
+      // disable first flipped card
+      if (this.$store.state.firstCard.index === this.index) return;
       // disable the second card to stop flipping cards one after another
       if (this.$store.state.secondCard.isFlipped) return;
 
@@ -85,6 +85,7 @@ export default {
       this.$store.commit('flipFirstCard', {
         fCard: card, isFlipped, optional, index,
       });
+      console.log(this.$store.state.firstCard.index);
     },
     handleSecondCard(card, isFlipped, optional, index) {
       this.$store.commit('flipSecondCard', {
