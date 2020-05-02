@@ -67,8 +67,8 @@ export default {
           this.handleSecondCard(null, false, '', null);
         }, 900);
 
-        // addScore TODO:
-        this.addScore();
+        // add score
+        this.$store.commit('addScore');
       } else {
         // handling when unmatched
         console.log('unmatched');
@@ -82,6 +82,8 @@ export default {
           this.handleFirstCard(null, false, '', null);
           this.handleSecondCard(null, false, '', null);
         }, 900);
+
+        this.$store.commit('changeTurn');
       }
     },
     handleFirstCard(card, isFlipped, optional, index) {
@@ -102,10 +104,6 @@ export default {
     },
     removeMatchedCards() {
       return this.$store.state.matchedCards.some((mc) => mc === this.index);
-    },
-    addScore() {
-      console.log('add score!');
-      this.$store.commit('addScore');
     },
   },
 };

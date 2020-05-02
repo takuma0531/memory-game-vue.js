@@ -64,6 +64,17 @@ export default new Vuex.Store({
     addScore(state) {
       state.setGameInfo.playersStatus[state.currentPlayer.id][state.currentPlayer.name].score += 1;
     },
+    changeTurn(state) {
+      console.log(state.currentPlayer.id);
+      console.log(state.setGameInfo.playersStatus.length);
+      if (state.currentPlayer.id === state.setGameInfo.playersStatus.length - 1) {
+        state.currentPlayer.id = 0;
+        state.currentPlayer.name = 'player1';
+      } else {
+        state.currentPlayer.id += 1;
+        state.currentPlayer.name = `player${state.currentPlayer.id + 1}`;
+      }
+    },
   },
   actions: {
     setGameInfo({ commit }, { nPlayer, cardChar, nCard }) {
