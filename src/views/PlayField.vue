@@ -84,14 +84,18 @@ export default {
 </script>
 
 <style scoped>
+.play-field {
+  position: relative;
+}
+
 .restart-field {
-  text-align: center;
-  margin-top: 50px;
+  margin-top: 3vw;
+  margin-bottom: 1vw;
 }
 
 .restart {
   color: #ef1515d1;
-  font-size: 1.7vw;
+  font-size: 2vw;
   font-weight: bold;
   text-decoration: none;
   padding: 4px;
@@ -106,22 +110,45 @@ export default {
 
 .player-status {
   display: flex;
-  flex-direction: row;
-  margin: 10px auto;
+  flex-direction: column;
+  margin-left: 0;
+  margin-right: 65%;
 }
 
 .memory-game {
+  position: absolute;
   display: flex;
   flex-wrap: wrap;
   width: 640px;
   height: 640px;
-  margin: auto;
+  left: 30%;
+  top: 15%;
   perspective: 1000px;
 }
 
 @media screen and (max-width: 1024px) {
+  .restart-field {
+    text-align: center;
+    margin-top: 3vw;
+  }
+
   .restart {
-    font-size: 2.5vw;
+    font-size: 3vw;
+  }
+
+  .player-status {
+    display: flex;
+    flex-direction: row;
+    margin: 10px auto;
+  }
+
+  .memory-game {
+    position: relative;
+    width: 90vw;
+    height: 90vw;
+    left: 0;
+    top: 0;
+    margin: auto;
   }
 }
 </style>

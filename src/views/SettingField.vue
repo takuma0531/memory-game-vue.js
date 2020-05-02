@@ -59,7 +59,7 @@ export default {
   color: white;
   font-weight: bold;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 4vw;
 }
 
 .setting-option {
@@ -67,18 +67,18 @@ export default {
   color: white;
   font-weight: bold;
   margin: auto;
-  margin-top: 160px;
+  margin-top: 120px;
   text-align: center;
-  padding-top: 20px;
-  width: 50%;
-  height: 340px;
+  padding-top: 2vw;
+  width: 70vw;
+  height:35vw;
   background: #0e58108c;
   border-radius: 10px;
   box-shadow: 0.7px 0.5px 0.5px 0px black;
 }
 
 .players-select, .card-type-select, .cards-select {
-  margin: 40px auto;
+  margin: 4vw auto;
 }
 
 label {
@@ -103,5 +103,20 @@ label {
 
 .start:hover {
   background: green;
+}
+
+@media screen and (max-width: 1024px) {
+  .greeting {
+    font-size: 5vw;
+  }
+
+  .setting-option {
+    font-size: 3vw;
+    margin-top: 14vw;
+  }
+
+  #players-select, #card-type-select, #cards-select {
+    font-size: 2vw;
+  }
 }
 </style>

@@ -44,14 +44,14 @@ export default {
 
 <style scoped>
 .player-status {
-  margin: 30px;
+  margin: 0.5vw;
 }
 
 .player {
   font-size: 1.5vw;
   color: #f5f9f5c7;
   font-weight: bold;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 10px;
   background: #29842ca3;
   border: 1px solid #29842ca3;
@@ -63,7 +63,7 @@ export default {
 
 @media screen and (max-width: 1024px) {
   .player {
-    font-size: 2.3vw;
+    font-size: 2.5vw;
   }
 }
 </style>

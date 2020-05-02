@@ -144,7 +144,7 @@ export default {
 .front-face, .back-face {
   width: 80%;
   height: 80%;
-  padding: 5px;
+  padding: 3px;
   position: absolute;
   border-radius: 10px;
   background: #7dcc8780;
@@ -153,5 +153,17 @@ export default {
 
 .front-face {
   transform: rotateY(180deg);
+}
+
+@media screen and (max-width: 767px) {
+  .memory-card {
+    width: calc(25% - 20px);
+    height: calc(25% - 20px);
+  }
+
+  .front-face, .back-face {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
