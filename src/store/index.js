@@ -104,7 +104,6 @@ export default new Vuex.Store({
           max = state.setGameInfo.playersStatus[i][`player${i + 1}`].score;
         }
       }
-      console.log(max);
 
       for (let i = 0; i < state.setGameInfo.nPlayer; i += 1) {
         if (state.setGameInfo.playersStatus[i][`player${i + 1}`].score === max) {
