@@ -1,15 +1,15 @@
 <template>
   <div class="play-field">
-
-    <div class="restart-field">
-      <router-link class="restart" v-on:click.native="restart" to="/">Restart Game</router-link>
-    </div>
-
     <div class="player-status">
       <PlayerStatus v-for="(pstatus, id) in playersStatus" :key="id" :pstatus="pstatus" :id="id"/>
     </div>
 
-    <div class="winners">{{ renderingWinners }}</div>
+    <div class="winners-modal">
+      <div class="winners-modal-content">
+        <p class="winners">{{ winners }}</p>
+        <router-link class="restart" v-on:click.native="restart" to="/">Restart Game</router-link>
+      </div>
+    </div>
 
     <div class="memory-game">
       <Card v-for="(card, index) in cards" :key="index" :card="card" :index="index">
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import $ from 'jquery';
 import Card from '../components/Card.vue';
 import PlayerStatus from './PlayerStatus.vue';
 
@@ -44,8 +45,9 @@ export default {
   },
 
   computed: {
-    renderingWinners() {
+    winners() {
       if (this.$store.state.winners.length !== 0) {
+        $('.winners-modal').show();
         return `${this.$store.state.winners.toString()} win!`;
       }
       return '';
@@ -88,13 +90,8 @@ export default {
   position: relative;
 }
 
-.restart-field {
-  margin-top: 3vw;
-  margin-bottom: 1vw;
-}
-
 .restart {
-  color: #ef1515d1;
+  color: #df2d2dd1;
   font-size: 2vw;
   font-weight: bold;
   text-decoration: none;
@@ -113,6 +110,35 @@ export default {
   flex-direction: column;
   margin-left: 0;
   margin-right: 65%;
+}
+
+.winners-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 10vw;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.45);
+}
+
+.winners-modal-content {
+  background-color: #0e6103e0;
+  border-radius: 10px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #1786209c;
+  width: 60%;
+  text-align: right;
+  font-size: 2.5vw;
+}
+
+.winners {
+  font-weight: bold;
+  color: #f3d711f0;
+  text-align: left;
 }
 
 .memory-game {
@@ -140,6 +166,15 @@ export default {
     display: flex;
     flex-direction: row;
     margin: 10px auto;
+  }
+
+  .winners-modal {
+    padding-top: 40vw;
+  }
+
+  .winners-modal-content {
+    font-size: 3vw;
+    width: 80%;
   }
 
   .memory-game {
