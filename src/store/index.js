@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    accessAuth: false,
     setGameInfo: {
       playersStatus: [],
       nPlayer: null,
@@ -35,6 +36,10 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    setAccessAuth(state) {
+      state.accessAuth = true;
+    },
+
     setGameInfo(state, {
       playersStatus, nPlayer, cardSuit, pairCardsNum, nCard,
     }) {
@@ -58,6 +63,10 @@ export default new Vuex.Store({
       for (let i = 0; i < 4; i += 1) {
         gameInfo.playersStatus[i][`player${i + 1}`].score = 0;
       }
+
+      console.log(state.accessAuth);
+
+      state.accessAuth = false;
     },
 
     flipFirstCard(state, {
@@ -124,6 +133,7 @@ export default new Vuex.Store({
       commit('setGameInfo', {
         playersStatus, nPlayer, cardSuit, pairCardsNum, nCard,
       });
+      commit('setAccessAuth');
     },
   },
 });

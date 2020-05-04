@@ -156,11 +156,6 @@ export default {
 }
 
 @media screen and (max-width: 767px) {
-  .memory-card {
-    width: calc(25% - 20px);
-    height: calc(25% - 20px);
-  }
-
   .front-face, .back-face {
     width: 100%;
     height: 100%;
